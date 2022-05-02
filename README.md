@@ -12,11 +12,13 @@ As such, the examples shouldn't be used for any real code. Many concepts/classes
 
 Just having some fun...getting outside of my python comfort zone.
 
+I was figuring out my own "style-guide" as I went, so no there is little consistency (just like the use of tense in this README). Some headers are documented with a Doxygen-stye description. Some are not documented at all or just use simple inline comments. Nothin here is complicated enough to warrant any real documentation.
+
 ### Organization
 
 The repo is organized (mostly) by the chapters in the book. For example, code from the book chapter 4 is in the folder `ch4`. If necessary, specific examples/implementations are broken out further into relevant subdirectories.
 
-Code is stored in the source folder `src` (possible with subdirectories) with all header/implementation/test files alongside rather than in separate `include`/`test` directory structures.
+Code is stored in the source folder `src` (possible with subdirectories) with all header/implementation/test files alongside rather than in separate `include`/`test` directory structures. I settled on using `{file_name}.hpp` for header files and `{file_name}.cpp` for implementation files. Any tests will be written in a `{file_name}_test.cpp` file. Not sure if this is good, but that's how I like to do it in python so here we are.
 
 Some examples from the book build on one another. Rather than referencing previous chapters and a bunch of relative paths, I have _generally_ opted to just copy the code (and make any desired changes) to the new chapter's directory. As a result, some code is unfortunately copied. Perhaps even worse, some code from previous chapters has become "stale" and any necessary changes are only implemented in the newer/relevant classes. But at least this way, code in `ch4` will not have implementation details necessary for code in, say, `ch11`.
 
