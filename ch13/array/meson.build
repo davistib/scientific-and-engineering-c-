@@ -18,6 +18,7 @@ project(
 executable(
   'tests',
   'src/subscript_array_test.cpp',
+  'src/concrete_array_shape_test.cpp',
   'test.cpp',
   install : true,
 )

@@ -61,5 +61,5 @@ Subscript ConcreteArrayShape<N>::length() const {
 template <Dimension N>
 inline
 void ConcreteArrayShape<N>::set_shape(const SubscriptArray<N>& shape) {
-    shape_(shape);
+    shape_ = shape;
 }

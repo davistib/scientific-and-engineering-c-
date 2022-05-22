@@ -7,6 +7,9 @@
  * For example, for a one-dimensional array of size 20, SubscriptArray<1> stores 20. Similarly, for a two-dimensional
  * array of size 5 x 4, SubscriptArray<2> stores 5 and 4. In each case, the size of each dimension is accessible using
  * the operator().
+ *
+ * Note this class is not intended to be used on its own. It does not have the safe-guards necessary for general
+ * purpose use. Rather, it should be used as private members of other classes of the template library.
  */
 
 #include "subscript.hpp"
