@@ -19,6 +19,7 @@ executable(
   'tests',
   'src/subscript_array_test.cpp',
   'src/concrete_array_shape_test.cpp',
+  'src/concrete_column_major_subscriptor_test.cpp',
   'test.cpp',
   install : true,
 )

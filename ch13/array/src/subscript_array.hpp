@@ -2,14 +2,13 @@
  * @brief Define the SubscriptArray class template
  *
  * SubscriptArray is a simple, low-overhead way to store arrays of subscripts. The subscripts represents subscripts of
- * an actual array implementation. SubscriptArray is parameterized by the subscript dimension.
+ * an actual array implementation. SubscriptArray is parameterized by the subscript dimension. This class may be used
+ * to store the size/shape of an array (though it is generally a private data member in that case), or used to store
+ * the subscripts for an element on a larger array.
  *
- * For example, for a one-dimensional array of size 20, SubscriptArray<1> stores 20. Similarly, for a two-dimensional
- * array of size 5 x 4, SubscriptArray<2> stores 5 and 4. In each case, the size of each dimension is accessible using
- * the operator().
- *
- * Note this class is not intended to be used on its own. It does not have the safe-guards necessary for general
- * purpose use. Rather, it should be used as private members of other classes of the template library.
+ * Note, this class is missing potentially useful safe-guards againts sampling outside of the array class. However, it
+ * is not always attached to a physical array, and as such, those safe-guards are not general purpose. The user must be
+ * careful, or those safe-guards have to implemented downstream of this class.
  */
 
 #include "subscript.hpp"
