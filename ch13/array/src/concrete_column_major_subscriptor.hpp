@@ -4,6 +4,8 @@
  * ConcreteColumnMajorSubscriptor computes the offset for an element based on column major ordering.
  */
 
+#pragma once
+
 #include "concrete_array_shape.hpp"
 
 // #####################################################################################################################

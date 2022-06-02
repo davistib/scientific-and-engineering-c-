@@ -4,6 +4,8 @@
  * ConcreteArrayShape represents the shape of an array that is fixed at compile time.
  */
 
+#pragma once
+
 #include "subscript.hpp"
 #include "subscript_array.hpp"
 
