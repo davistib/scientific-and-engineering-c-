@@ -1,5 +1,7 @@
 // Define the SubscriptArray class template
 
+#pragma once
+
 #include "subscript.hpp"
 
 // #####################################################################################################################

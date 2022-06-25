@@ -1,8 +1,13 @@
 // Define the ConcreteArray2d class template
 
+#pragma once
+
 #include <stdexcept>
+#include <string>
 
 #include "concrete_array_shape.hpp"
+#include "concrete_array_2d_const_ref.hpp"
+#include "concrete_array_2d_ref.hpp"
 
 // #####################################################################################################################
 
@@ -157,13 +162,13 @@ class ConcreteArray2d :
 
         // Conversion operators  ###################################################################
 
-        // operator ConcreteArray2dRef<Subscriptor, T>();
-        // operator ConcreteArray2dConstRef<Subscriptor, T>() const;
+        operator ConcreteArray2dRef<Subscriptor, T>();
+        operator ConcreteArray2dConstRef<Subscriptor, T>() const;
 
         // Assignment operators  ###################################################################
 
         ConcreteArray2d<Subscriptor, T>& operator=(const ConcreteArray2d<Subscriptor, T>& rhs);
-        // ConcreteArray2d<Subscriptor, T>& operator=(const ConcreteArray2dConstRef<Subscriptor, T>& rhs);
+        ConcreteArray2d<Subscriptor, T>& operator=(const ConcreteArray2dConstRef<Subscriptor, T>& rhs);
         ConcreteArray2d<Subscriptor, T>& operator=(const T& rhs);
 
     protected:
@@ -259,7 +264,50 @@ T const* ConcreteArray2d<Subscriptor, T>::first_datum() const {
 
 // Conversion operators  ###########################################################################
 
+template <class Subscriptor, class T>
+inline
+ConcreteArray2d<Subscriptor, T>::operator ConcreteArray2dRef<Subscriptor, T>() {
+    return ConcreteArray2dRef(subscriptor(), data_);
+}
+
+template <class Subscriptor, class T>
+inline
+ConcreteArray2d<Subscriptor, T>::operator ConcreteArray2dConstRef<Subscriptor, T>() const {
+    return ConcreteArray2dConstRef(subscriptor(), data_);
+}
+
 // Assignment operators  ###########################################################################
+
+template <class Subscriptor, class T>
+inline
+ConcreteArray2d<Subscriptor, T>& ConcreteArray2d<Subscriptor, T>::operator=(
+    const ConcreteArray2d<Subscriptor, T>& rhs
+) {
+    // create a reference object and use it's assignment operator
+    ConcreteArray2dRef<Subscriptor, T>(*this) = rhs;
+    return *this;
+}
+
+template <class Subscriptor, class T>
+inline
+ConcreteArray2d<Subscriptor, T>& ConcreteArray2d<Subscriptor, T>::operator=(
+    const ConcreteArray2dConstRef<Subscriptor, T>& rhs
+) {
+    // create a reference object and use it's assignment operator
+    ConcreteArray2dRef<Subscriptor, T>(*this) = rhs;
+    return *this;
+}
+
+template <class Subscriptor, class T>
+inline
+ConcreteArray2d<Subscriptor, T>& ConcreteArray2d<Subscriptor, T>::operator=(const T& rhs) {
+    // create a reference object and use it's assignment operator
+    ConcreteArray2dRef<Subscriptor, T>(*this) = rhs;
+    // std::cout << "in copy assignment..." << std::endl;
+    return *this;
+}
+
+// NOTE: can implement operators directly if performance hit from making temporary reference
 
 // Protected methods  ##############################################################################
 

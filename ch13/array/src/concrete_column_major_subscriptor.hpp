@@ -10,6 +10,10 @@
 
 // #####################################################################################################################
 
+// FIXME: have to use unnamed namespace to make this compile across multiple units
+// FIXME: figure out the best way to avoid
+namespace {
+
 template <Dimension N>
 class ConcreteColumnMajorSubscriptor :
     public ConcreteArrayShape<N> {
@@ -32,6 +36,8 @@ class ConcreteColumnMajorSubscriptor :
          */
         Subscript offset(const SubscriptArray<N>& s) const;
 };
+
+}
 
 // ConcreteColumnMajorSubscriptor<1> ###############################################################
 

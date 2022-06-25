@@ -1,5 +1,7 @@
 // Define the ConcreteColumnMajorArray2d class template
 
+#pragma once
+
 #include "concrete_column_major_subscriptor.hpp"
 #include "concrete_array_2d.hpp"
 
@@ -101,3 +103,12 @@ ConcreteColumnMajorArray2d<T>::ConcreteColumnMajorArray2d(Subscript s0, Subscrip
 //         set_size_on_heap(a.length());
 //         concrete_copy(*this, a);
 // }
+
+// Assignment operators ############################################################################
+
+template <class T>
+ConcreteColumnMajorArray2d<T>&
+ConcreteColumnMajorArray2d<T>::operator=(const T& rhs) {
+    ConcreteArray2d<ConcreteColumnMajorSubscriptor<2>, T>::operator=(rhs);
+    return *this;
+}
