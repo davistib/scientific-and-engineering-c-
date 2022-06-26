@@ -8,6 +8,7 @@
 #include "concrete_array_2d.hpp"
 #include "concrete_array_shape.hpp"
 #include "concrete_array_2d_const_ref.hpp"
+#include "concrete_array_projection_1d.hpp"
 
 // #####################################################################################################################
 
@@ -34,8 +35,8 @@ class ConcreteArray2dRef :
         typedef T ElementT;
         typedef Subscriptor SubscriptorT;
 
-        // typedef ConcreteArrayProjection1d<Subscriptor, T> ProjectionT;
-        // typedef ConstConcreteArrayProjection1d<Subscriptor, T> ConstProjectionT;
+        typedef ConcreteArrayProjection1d<Subscriptor, T> ProjectionT;
+        typedef ConstConcreteArrayProjection1d<Subscriptor, T> ConstProjectionT;
 
         // typedef ArrayBrowser<ConcreteArray2dRef<Subscriptor, T>> BrowserType;
         // typedef ArrayIterator<ConcreteArray2dRef<Subscriptor, T>> IteratorType;
@@ -75,7 +76,7 @@ class ConcreteArray2dRef :
          *
          * @return array projection
          */
-        // ProjectionT project(Subscript s, Dimension d) const;
+        ProjectionT project(Subscript s, Dimension d) const;
 
         /**
          * Compute row projection, or slice, of array.
@@ -84,7 +85,7 @@ class ConcreteArray2dRef :
          *
          * @return array row projection
          */
-        // ProjectionT operator[](Subscript s) const;
+        ProjectionT operator[](Subscript s) const;
 
         /**
          * Compute row projection, or slice, of array.
@@ -93,7 +94,7 @@ class ConcreteArray2dRef :
          *
          * @return array row projection
          */
-        // ProjectionT row(Subscript i) const;
+        ProjectionT row(Subscript i) const;
 
         /**
          * Compute column projection, or slice, of array.
@@ -102,7 +103,7 @@ class ConcreteArray2dRef :
          *
          * @return array column projection
          */
-        // ProjectionT column(Subscript j) const;
+        ProjectionT column(Subscript j) const;
 
         // Conversion operators  ###################################################################
 
@@ -200,27 +201,39 @@ T* ConcreteArray2dRef<Subscriptor, T>::first_datum() const {
     return data_;
 }
 
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2dRef<Subscriptor, T>::ProjectionT
-// ConcreteArray2dRef<Subscriptor, T>::operator[](Subscript s) const {
-//     return project(s, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2dRef<Subscriptor, T>::ProjectionT
-// ConcreteArray2dRef<Subscriptor, T>::row(Subscript i) const {
-//     return project(i, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2dRef<Subscriptor, T>::ProjectionT
-// ConcreteArray2dRef<Subscriptor, T>::column(Subscript j) const {
-//     return project(j, 1);
-// }
-//
+template <class Subscriptor, class T>
+inline
+ConcreteArrayProjection1d<Subscriptor, T>
+ConcreteArray2dRef<Subscriptor, T>::project(Subscript s, Dimension d) const {
+    SubscriptArray<2> pjs(0, 0);
+    pjs(d) = s;
+    return ConcreteArrayProjection1d<Subscriptor, T>(
+        this->projection_subscriptor(d, s),
+        first_datum() + offset(pjs)
+    );
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2dRef<Subscriptor, T>::ProjectionT
+ConcreteArray2dRef<Subscriptor, T>::operator[](Subscript s) const {
+    return project(s, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2dRef<Subscriptor, T>::ProjectionT
+ConcreteArray2dRef<Subscriptor, T>::row(Subscript i) const {
+    return project(i, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2dRef<Subscriptor, T>::ProjectionT
+ConcreteArray2dRef<Subscriptor, T>::column(Subscript j) const {
+    return project(j, 1);
+}
+
 // Conversion operators  ###########################################################################
 
 template <class Subscriptor, class T>
@@ -253,6 +266,7 @@ ConcreteArray2dRef<Subscriptor, T>::operator=(const T& rhs) const {
     while (n -- > 0) {
         (*this)[n] = rhs;  // use projection operator for assignment
     }
+    return *this;
 }
 
 // Protected methods  ##############################################################################

@@ -45,18 +45,18 @@ class ConcreteColumnMajorArray2d :
          *
          * @param array array to copy
          */
-        // ConcreteColumnMajorArray2d(
-        //     const ConcreteArray2dConstRef<ConcreteColumnMajorSubscriptor<2>, T>& array
-        // );
+        ConcreteColumnMajorArray2d(
+            const ConcreteArray2dConstRef<ConcreteColumnMajorSubscriptor<2>, T>& array
+        );
 
         /**
          * Create a new 2d array from another array, that is a constant reference
          *
          * @param array array to copy
          */
-        // ConcreteColumnMajorArray2d(
-        //     const ConcreteArray2dConstRef<ConcreteColumnMajorSubscriptor<3>::ProjectionT, T>& array
-        // );
+        ConcreteColumnMajorArray2d(
+            const ConcreteArray2dConstRef<ConcreteColumnMajorSubscriptor<3>::ProjectionT, T>& array
+        );
 
         /**
          * Create a new 2d array from another array, that is any constant array

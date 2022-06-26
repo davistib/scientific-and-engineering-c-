@@ -42,3 +42,30 @@ class ConcreteStrides {
         SubscriptArray<N> strides_;
 
 };
+
+// Implementation ######################################################################################################
+
+template <Dimension N>
+ConcreteStrides<N>::ConcreteStrides(const SubscriptArray<N>& s) :
+    strides_(s) {
+}
+
+template <Dimension N>
+ConcreteStrides<N>::ConcreteStrides() {}
+
+template <Dimension N>
+inline
+Subscript ConcreteStrides<N>::stride(Dimension d) const {
+    return strides_(d);
+}
+
+template <Dimension N>
+inline
+Subscript ConcreteStrides<N>::offset(const SubscriptArray<N>& s) const {
+    Subscript index = 0;
+    Dimension d = N;
+    while (d-- > 0) {
+        index += stride(d) * s(d);
+    }
+    return index;
+}

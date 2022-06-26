@@ -19,7 +19,7 @@ executable(
   'tests',
   'src/subscript_array_test.cpp',
   'src/concrete_array_shape_test.cpp',
-  # 'src/concrete_column_major_subscriptor_test.cpp',  # cannot compile this right now with other array test
+  'src/concrete_column_major_subscriptor_test.cpp',  # cannot compile this right now with other array test
   'src/concrete_column_major_array_2d_test.cpp',
   'test.cpp',
   install : true,

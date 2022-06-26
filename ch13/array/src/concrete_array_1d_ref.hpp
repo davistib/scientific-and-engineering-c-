@@ -81,7 +81,7 @@ class ConcreteArray1dRef :
 
         // Constructor
         // Declare protected so only derived classes can access it
-        ConcreteArray1dRef(Subscriptor s, const T* p);
+        ConcreteArray1dRef(Subscriptor s, T* p);
 
         friend ConcreteArray1d<Subscriptor, T>;
 
@@ -162,7 +162,7 @@ ConcreteArray1dRef<Subscriptor, T>::operator=(const T& rhs) {
 
 template <class Subscriptor, class T>
 inline
-ConcreteArray1dRef<Subscriptor, T>::ConcreteArray1dRef(Subscriptor s, const T* p) :
+ConcreteArray1dRef<Subscriptor, T>::ConcreteArray1dRef(Subscriptor s, T* p) :
     Subscriptor(s),
     data_(p) {
 }

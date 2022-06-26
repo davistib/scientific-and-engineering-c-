@@ -8,6 +8,8 @@
 #include "concrete_array_shape.hpp"
 #include "concrete_array_2d_const_ref.hpp"
 #include "concrete_array_2d_ref.hpp"
+#include "concrete_array_projection_1d.hpp"
+#include "const_concrete_array_projection_1d.hpp"
 
 // #####################################################################################################################
 
@@ -35,8 +37,8 @@ class ConcreteArray2d :
         typedef T ElementT;
         typedef Subscriptor SubscriptorT;
 
-        // typedef ConcreteArrayProjection1d<Subscriptor, T> ProjectionT;
-        // typedef ConstConcreteArrayProjection1d<Subscriptor, T> ConstProjectionT;
+        typedef ConcreteArrayProjection1d<Subscriptor, T> ProjectionT;
+        typedef ConstConcreteArrayProjection1d<Subscriptor, T> ConstProjectionT;
 
         // typedef ConcreteArrayBrowser<ConcreteArray2d<Subscriptor, T>> BrowserType;
         // typedef ConcreteArrayIterator<ConcreteArray2d<Subscriptor, T>> IteratorType;
@@ -91,7 +93,7 @@ class ConcreteArray2d :
          *
          * @return array projection
          */
-        // ProjectionT project(Subscript s, Dimension d);
+        ProjectionT project(Subscript s, Dimension d);
 
         /**
          * Compute projection, or slice, of array.
@@ -104,7 +106,7 @@ class ConcreteArray2d :
          *
          * @return const array projection
          */
-        // ConstProjectionT project(Subscript s, Dimension d) const;
+        ConstProjectionT project(Subscript s, Dimension d) const;
 
         /**
          * Compute row projection, or slice, of array.
@@ -113,7 +115,7 @@ class ConcreteArray2d :
          *
          * @return array row projection
          */
-        // ProjectionT operator[](Subscript s);
+        ProjectionT operator[](Subscript s);
 
         /**
          * Compute row projection, or slice, of array.
@@ -122,7 +124,7 @@ class ConcreteArray2d :
          *
          * @return const array row projection
          */
-        // ConstProjectionT operator[](Subscript s) const;
+        ConstProjectionT operator[](Subscript s) const;
 
         /**
          * Compute row projection, or slice, of array.
@@ -131,7 +133,7 @@ class ConcreteArray2d :
          *
          * @return array row projection
          */
-        // ProjectionT row(Subscript i);
+        ProjectionT row(Subscript i);
 
         /**
          * Compute row projection, or slice, of array.
@@ -140,7 +142,7 @@ class ConcreteArray2d :
          *
          * @return const array row projection
          */
-        // ConstProjectionT row(Subscript i) const;
+        ConstProjectionT row(Subscript i) const;
 
         /**
          * Compute column projection, or slice, of array.
@@ -149,7 +151,7 @@ class ConcreteArray2d :
          *
          * @return array column projection
          */
-        // ProjectionT column(Subscript j);
+        ProjectionT column(Subscript j);
 
         /**
          * Compute column projection, or slice, of array.
@@ -158,7 +160,7 @@ class ConcreteArray2d :
          *
          * @return const array column projection
          */
-        // ConstProjectionT column(Subscript j) const;
+        ConstProjectionT column(Subscript j) const;
 
         // Conversion operators  ###################################################################
 
@@ -226,41 +228,54 @@ T const* ConcreteArray2d<Subscriptor, T>::first_datum() const {
     return data_;
 }
 
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ProjectionT ConcreteArray2d<Subscriptor, T>::operator[](Subscript s) {
-//     return project(s, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ConstProjectionT ConcreteArray2d<Subscriptor, T>::operator[](Subscript s) const {
-//     return project(s, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ProjectionT ConcreteArray2d<Subscriptor, T>::row(Subscript i) {
-//     return project(i, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ConstProjectionT ConcreteArray2d<Subscriptor, T>::row(Subscript i) const {
-//     return project(i, 0);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ProjectionT ConcreteArray2d<Subscriptor, T>::column(Subscript j) {
-//     return project(j, 1);
-// }
-//
-// template <class Subscriptor, class T>
-// inline
-// ConcreteArray2d<Subscriptor, T>::ConstProjectionT ConcreteArray2d<Subscriptor, T>::column(Subscript j) const {
-//     return project(j, 1);
-// }
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ProjectionT
+ConcreteArray2d<Subscriptor, T>::project(Subscript s, Dimension d) {
+    return ConcreteArray2dRef<Subscriptor, T>(*this).project(s, d);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ProjectionT
+ConcreteArray2d<Subscriptor, T>::operator[](Subscript s) {
+    return project(s, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ConstProjectionT
+ConcreteArray2d<Subscriptor, T>::operator[](Subscript s) const {
+    return project(s, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ProjectionT
+ConcreteArray2d<Subscriptor, T>::row(Subscript i) {
+    return project(i, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ConstProjectionT
+ConcreteArray2d<Subscriptor, T>::row(Subscript i) const {
+    return project(i, 0);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ProjectionT
+ConcreteArray2d<Subscriptor, T>::column(Subscript j) {
+    return project(j, 1);
+}
+
+template <class Subscriptor, class T>
+inline
+typename ConcreteArray2d<Subscriptor, T>::ConstProjectionT
+ConcreteArray2d<Subscriptor, T>::column(Subscript j) const {
+    return project(j, 1);
+}
 
 // Conversion operators  ###########################################################################
 

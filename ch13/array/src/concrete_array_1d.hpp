@@ -109,7 +109,8 @@ class ConcreteArray1d :
         // Constructor
         // Declare protected so only derived classes can access it
         // TODO: source does not have const here...think about why
-        ConcreteArray1d(const Subscriptor& s, T* p);
+        // ConcreteArray1d(const Subscriptor& s, T* p);
+        ConcreteArray1d(Subscriptor& s, T* p);
 
         void reshape_on_heap(const SubscriptArray<1>& s);
         void set_size_on_heap(Subscript n);
@@ -225,7 +226,8 @@ ConcreteArray1d<Subscriptor, T>& ConcreteArray1d<Subscriptor, T>::operator=(cons
 
 template <class Subscriptor, class T>
 inline
-ConcreteArray1d<Subscriptor, T>::ConcreteArray1d(const Subscriptor& s, T* p) :
+// ConcreteArray1d<Subscriptor, T>::ConcreteArray1d(const Subscriptor& s, T* p) :
+ConcreteArray1d<Subscriptor, T>::ConcreteArray1d(Subscriptor& s, T* p) :
     Subscriptor(s),
     data_(p) {
 }
