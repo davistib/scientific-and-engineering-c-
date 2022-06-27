@@ -24,7 +24,6 @@ class ConcreteColumnMajorSubscriptor :
         ConcreteColumnMajorSubscriptor() {};
         ConcreteColumnMajorSubscriptor(const SubscriptArray<N>& s);
 
-        // TODO: define projection operators
         typedef ConcreteColumnMajorProjectionSubscriptor<N-1> ProjectionT;
         ProjectionT projection_subscriptor(Dimension d, Subscript) const;
 
@@ -44,6 +43,7 @@ class ConcreteColumnMajorSubscriptor :
 // ConcreteColumnMajorSubscriptor<1> ###############################################################
 
 // Template speciliazation for 1D subscriptors
+// ends recursion on typedef
 
 template <>
 class ConcreteColumnMajorSubscriptor<1> :

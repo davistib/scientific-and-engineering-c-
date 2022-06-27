@@ -13,7 +13,9 @@
 // #####################################################################################################################
 
 /**
- * ConcreteArray2dRef is the base class for concrete arrays references.
+ * ConcreteArray2dRef is the base class for concrete array references.
+ *
+ * The array reference class acts like a built-in reference to the array class.
  *
  * @tparam Subscriptor
  * @tparam T
@@ -151,6 +153,7 @@ class ConcreteArray2dRef :
         // Declae protected so only derived classes can access it
         ConcreteArray2dRef(Subscriptor s, T* p);
 
+        // Allow arrays to construct references of themselves
         friend ConcreteArray2d<Subscriptor, T>;
 
     private:
